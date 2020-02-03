@@ -2,7 +2,7 @@
 
 A simple virtual filesystem to navigate Ensembl genomic data using FUSE
 
-## More to follow...
+## Conceptual demo
 
 The basic idea is you should be able to do the following:
 
@@ -17,4 +17,6 @@ GCTGCAGAAGACGACGGCCGACTTGGATCACACTCTTGTGAGTGTCCCCAGTGTTGCAGA
 ...
 ```
 
-and the data will be pulled live from the EnsEMBL genomic databases located around the world.
+...and the data will be pulled live from the EnsEMBL genomic databases located around the world.
+
+More to follow...
