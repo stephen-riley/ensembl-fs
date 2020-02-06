@@ -3,10 +3,14 @@ using System.Diagnostics;
 using System.IO;
 using FuseSharp;
 
-namespace EnsemblFS {
-    class Program {
-        static int Main(string[] args) {
-            if (args.Length == 0) {
+namespace EnsemblFS
+{
+    class Program
+    {
+        static int Main(string[] args)
+        {
+            if (args.Length == 0)
+            {
                 Console.Error.WriteLine("Usage: AlphaNumericFS <mount point>");
                 return -1;
             }
@@ -24,8 +28,9 @@ namespace EnsemblFS {
 
             int status = -1;
 
-            using(FileSystem fs = new EnsemblFileSystem())
-            using(FileSystemHandler fsh = new FileSystemHandler(fs, actualArgs)) {
+            using (FileSystem fs = new EnsemblFileSystem())
+            using (FileSystemHandler fsh = new FileSystemHandler(fs, actualArgs))
+            {
                 status = fsh.Start();
             }
 
@@ -33,9 +38,16 @@ namespace EnsemblFS {
             return status;
         }
 
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e) {
-            Console.WriteLine((e.ExceptionObject as Exception).Message);
-            Debug.WriteLine((e.ExceptionObject as Exception).Message);
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var exception = e.ExceptionObject as Exception;
+            if (exception == null)
+            {
+                return;
+            }
+
+            Console.WriteLine(exception.Message);
+            Debug.WriteLine(exception.Message);
         }
     }
 }
