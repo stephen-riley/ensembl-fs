@@ -14,4 +14,4 @@
     <ProjectReference Include="..\..\FuseSharp\src\FuseSharp\FuseSharp\FuseSharp.csproj" />
   </ItemGroup>
 
-</Project>
+ </Project>

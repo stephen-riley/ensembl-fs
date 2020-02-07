@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using FuseSharp;
 using Mono.Unix.Native;
@@ -20,7 +21,7 @@ namespace EnsemblFS.Directories
 
         public override ExpandedPath.Action HandlePath(ExpandedPath ep)
         {
-            Console.WriteLine($"*** StructuresDir.HandlePath {ep.Path}");
+            Trace.WriteLine($"StructuresDir.HandlePath {ep.Path}");
 
             if (ep.Level > ep.Components.Count)
             {

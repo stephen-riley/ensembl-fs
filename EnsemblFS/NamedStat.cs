@@ -6,7 +6,7 @@ namespace EnsemblFS
     {
         public string Name { get; private set; }
 
-        public Stat Stat { get; private set; }
+        public Stat Stat { get; internal set; }
 
         public NamedStat(string name, Stat stat)
         {

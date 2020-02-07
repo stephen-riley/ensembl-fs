@@ -20,8 +20,8 @@ namespace EnsemblFS
                         new StructuresDir(
                             new ChromosomeDir(
                                 new SequenceDir(
-                                    new RefSequenceFile(),
-                                    new PatchSequenceFile()
+                                    new RefSequenceFile("REF"),
+                                    new PatchSequenceFile("PATCH")
                                 )
                             )
                         )

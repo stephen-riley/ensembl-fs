@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using FuseSharp;
 using Mono.Unix.Native;
 
 using static EnsemblFS.ExpandedPath.Action;
+
+[assembly: InternalsVisibleTo("EnsemblFS.Tests")]
 
 namespace EnsemblFS
 {
@@ -27,7 +30,7 @@ namespace EnsemblFS
             }
         }
 
-        private ExpandedPath.Action LocateNodeByExpandedPath(ExpandedPath ep, NodeProvider node, out NodeProvider? handlingNode)
+        internal ExpandedPath.Action LocateNodeByExpandedPath(ExpandedPath ep, NodeProvider node, out NodeProvider? handlingNode)
         {
             var action = node.HandlePath(ep);
 

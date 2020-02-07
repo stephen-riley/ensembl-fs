@@ -4,20 +4,10 @@ using Mono.Unix.Native;
 
 namespace EnsemblFS.Files
 {
-    public class PatchSequenceFile : FileProvider
+    public class PatchSequenceFile : SpecificFileProvider
     {
-        public PatchSequenceFile() : base()
+        public PatchSequenceFile(string name) : base(name)
         {
-        }
-
-        public override ExpandedPath.Action HandlePath(ExpandedPath ep)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Errno OnOpenHandle(ExpandedPath file, PathInfo info)
-        {
-            throw new NotImplementedException();
         }
 
         public override Errno OnReadHandle(ExpandedPath file, PathInfo info, byte[] buf, long offset, out int bytesRead)

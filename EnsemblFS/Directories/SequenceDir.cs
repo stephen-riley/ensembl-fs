@@ -24,12 +24,23 @@ namespace EnsemblFS.Directories
             Trace.WriteLine($"SequenceDir.HandlePath {ep.Path}");
 
             var desiredFile = ep.Components.Last();
-            if (sequenceFiles.ContainsKey(desiredFile))
+
+            if (ep.Components.Count < Level)
             {
                 return ExpandedPath.Action.Handle;
             }
             else
             {
+                // we're asking about files in the dir
+                foreach (var child in Children)
+                {
+                    var action = child.HandlePath(ep);
+                    if (action == ExpandedPath.Action.Handle)
+                    {
+                        return ExpandedPath.Action.PassThrough;
+                    }
+                }
+
                 return ExpandedPath.Action.NotFound;
             }
         }
