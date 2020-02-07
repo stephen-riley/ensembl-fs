@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Ensembl;
 using FuseSharp;
@@ -7,7 +8,7 @@ using Mono.Unix.Native;
 
 namespace EnsemblFS
 {
-    public class ChromosomeDir : NodeProvider
+    public class ChromosomeDir : DirectoryProvider
     {
         private Dictionary<string, IList<NamedStat>> chromosomes = new Dictionary<string, IList<NamedStat>>();
 
@@ -17,21 +18,22 @@ namespace EnsemblFS
 
         public override ExpandedPath.Action HandlePath(ExpandedPath ep)
         {
-            var species = ep.Components[0];
-            var chromosome = ep.Components.Last();
-            if (chromosomes.ContainsKey(species))
-            {
-                if (chromosomes[species].Where(ns => ns.Name == chromosome).FirstOrDefault() != null)
-                {
-                    return ExpandedPath.Action.Handle;
-                }
-                else
-                {
-                    return ExpandedPath.Action.NotFound;
-                }
-            }
+            Trace.WriteLine($"StructuresDir.HandlePath {ep.Path}");
 
-            return ExpandedPath.Action.NotFound;
+            LoadChromosomeList(ep);
+
+            if (ep.Level > ep.Components.Count)
+            {
+                return ExpandedPath.Action.Unknown;
+            }
+            else if (ep.Level == ep.Components.Count)
+            {
+                return ExpandedPath.Action.Handle;
+            }
+            else
+            {
+                return ExpandedPath.Action.PassThrough;
+            }
         }
 
         public override Errno OnReadDirectory(ExpandedPath directory, PathInfo info, out IEnumerable<NamedStat> paths)
@@ -59,6 +61,8 @@ namespace EnsemblFS
 
         public override Errno OnGetPathStatus(ExpandedPath path, out NamedStat entry)
         {
+            LoadChromosomeList(path);
+
             var species = path.Components[0];
             var chromosome = path.Components.Last();
 
@@ -72,16 +76,6 @@ namespace EnsemblFS
                 entry = new NamedStat();
                 return Errno.ENOENT;
             }
-        }
-
-        public override Errno OnOpenHandle(ExpandedPath file, PathInfo info)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override Errno OnReadHandle(ExpandedPath file, PathInfo info, byte[] buf, long offset, out int bytesRead)
-        {
-            throw new System.NotImplementedException();
         }
 
         public void LoadChromosomeList(ExpandedPath ep)

@@ -5,7 +5,7 @@ using Mono.Unix.Native;
 
 namespace EnsemblFS.Directories
 {
-    public class RootDir : NodeProvider
+    public class RootDir : DirectoryProvider
     {
         private NamedStat rootDirEntry;
 
@@ -25,19 +25,9 @@ namespace EnsemblFS.Directories
             return 0;
         }
 
-        public override Errno OnOpenHandle(ExpandedPath file, PathInfo info)
-        {
-            throw new NotImplementedException();
-        }
-
         public override Errno OnReadDirectory(ExpandedPath directory, PathInfo info, out IEnumerable<NamedStat> paths)
         {
             return Children[0].OnReadDirectory(directory.NextLevel(), info, out paths);
-        }
-
-        public override Errno OnReadHandle(ExpandedPath file, PathInfo info, byte[] buf, long offset, out int bytesRead)
-        {
-            throw new NotImplementedException();
         }
     }
 }

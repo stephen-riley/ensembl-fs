@@ -7,7 +7,7 @@ using Mono.Unix.Native;
 
 namespace EnsemblFS.Directories
 {
-    public class SpeciesDir : NodeProvider
+    public class SpeciesDir : DirectoryProvider
     {
         private List<NamedStat> species = new List<NamedStat>();
 
@@ -22,6 +22,8 @@ namespace EnsemblFS.Directories
 
         public override Errno OnGetPathStatus(ExpandedPath path, out NamedStat entry)
         {
+            LoadSpeciesList();
+
             var dirname = path.Components.Last();
             if (species.Where(ns => ns.Name == dirname).FirstOrDefault() != null)
             {
@@ -35,16 +37,12 @@ namespace EnsemblFS.Directories
             }
         }
 
-        public override Errno OnOpenHandle(ExpandedPath file, PathInfo info)
-        {
-            throw new NotImplementedException($"{nameof(OnOpenHandle)} for path {file.Path}");
-        }
-
         public override Errno OnReadDirectory(ExpandedPath directory, PathInfo info, out IEnumerable<NamedStat> paths)
         {
+            LoadSpeciesList();
+
             if (directory.Components.Count < Level)
             {
-                LoadSpeciesList();
                 paths = species;
                 return 0;
             }
@@ -54,13 +52,10 @@ namespace EnsemblFS.Directories
             }
         }
 
-        public override Errno OnReadHandle(ExpandedPath file, PathInfo info, byte[] buf, long offset, out int bytesRead)
-        {
-            throw new NotImplementedException($"{nameof(OnReadHandle)} for path {file.Path}");
-        }
-
         public override ExpandedPath.Action HandlePath(ExpandedPath ep)
         {
+            LoadSpeciesList();
+
             if (ep.Level == 0)
             {
                 throw new ArgumentOutOfRangeException("ExpandedPath.Level cannot be 0 here");

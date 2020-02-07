@@ -6,7 +6,7 @@ using Mono.Unix.Native;
 
 namespace EnsemblFS.Directories
 {
-    public class StructuresDir : NodeProvider
+    public class StructuresDir : DirectoryProvider
     {
         private IList<NamedStat> subdirs = new List<NamedStat> {
             new NamedStat("chromosomes", Extensions.StandardDir()),
@@ -53,11 +53,6 @@ namespace EnsemblFS.Directories
             }
         }
 
-        public override Errno OnOpenHandle(ExpandedPath file, PathInfo info)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override Errno OnReadDirectory(ExpandedPath directory, PathInfo info, out IEnumerable<NamedStat> paths)
         {
             if (directory.Components.Count < Level)
@@ -69,11 +64,6 @@ namespace EnsemblFS.Directories
             {
                 return Children[0].OnReadDirectory(directory, info, out paths);
             }
-        }
-
-        public override Errno OnReadHandle(ExpandedPath file, PathInfo info, byte[] buf, long offset, out int bytesRead)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

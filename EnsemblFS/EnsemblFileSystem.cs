@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EnsemblFS.Directories;
+using EnsemblFS.Files;
 using FuseSharp;
 using Mono.Unix.Native;
 
@@ -17,7 +18,12 @@ namespace EnsemblFS
                 new RootDir(
                     new SpeciesDir(
                         new StructuresDir(
-                            new ChromosomeDir()
+                            new ChromosomeDir(
+                                new SequenceDir(
+                                    new RefSequenceFile(),
+                                    new PatchSequenceFile()
+                                )
+                            )
                         )
                     )
                 )
