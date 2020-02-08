@@ -18,8 +18,6 @@ namespace EnsemblFS
 
         public override ExpandedPath.Action HandlePath(ExpandedPath ep)
         {
-            Trace.WriteLine($"StructuresDir.HandlePath {ep.FullPath}");
-
             LoadChromosomeList(ep);
 
             if (ep.Level > ep.Components.Count)
