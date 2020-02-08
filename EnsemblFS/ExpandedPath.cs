@@ -13,7 +13,7 @@ namespace EnsemblFS
             NotFound
         }
 
-        public string Path { get; private set; }
+        public string FullPath { get; private set; }
 
         public IList<string> Components { get; private set; }
 
@@ -21,7 +21,7 @@ namespace EnsemblFS
 
         public ExpandedPath(string path)
         {
-            Path = path;
+            FullPath = path;
             Level = 0;
 
             Components = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
@@ -29,7 +29,7 @@ namespace EnsemblFS
 
         public ExpandedPath(ExpandedPath ep, int newLevel)
         {
-            Path = ep.Path;
+            FullPath = ep.FullPath;
             Level = newLevel;
             Components = ep.Components;
         }

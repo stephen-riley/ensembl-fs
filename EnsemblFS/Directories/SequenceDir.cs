@@ -21,7 +21,7 @@ namespace EnsemblFS.Directories
 
         public override ExpandedPath.Action HandlePath(ExpandedPath ep)
         {
-            Trace.WriteLine($"SequenceDir.HandlePath {ep.Path}");
+            Trace.WriteLine($"SequenceDir.HandlePath {ep.FullPath}");
 
             var desiredFile = ep.Components.Last();
 

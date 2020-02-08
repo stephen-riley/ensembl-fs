@@ -6,7 +6,7 @@ using Mono.Unix.Native;
 
 namespace EnsemblFS.Files
 {
-    public class RefSequenceFile : SpecificFileProvider
+    public class RefSequenceFile : NamedFileProvider
     {
         public RefSequenceFile(string name) : base(name)
         {

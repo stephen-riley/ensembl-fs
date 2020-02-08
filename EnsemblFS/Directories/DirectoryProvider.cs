@@ -13,7 +13,7 @@ namespace EnsemblFS
 
         public override sealed Errno OnOpenHandle(ExpandedPath file, PathInfo info)
         {
-            throw new System.NotImplementedException($"DirectoryProvider.OnOpenHandle({file.Path}) marked as sealed, not implemented");
+            throw new System.NotImplementedException($"DirectoryProvider.OnOpenHandle({file.FullPath}) marked as sealed, not implemented");
         }
 
         public override sealed Errno OnReadHandle(ExpandedPath file, PathInfo info, byte[] buf, long offset, out int bytesRead)

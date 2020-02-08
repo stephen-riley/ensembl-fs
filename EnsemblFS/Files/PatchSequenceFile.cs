@@ -4,7 +4,7 @@ using Mono.Unix.Native;
 
 namespace EnsemblFS.Files
 {
-    public class PatchSequenceFile : SpecificFileProvider
+    public class PatchSequenceFile : NamedFileProvider
     {
         public PatchSequenceFile(string name) : base(name)
         {

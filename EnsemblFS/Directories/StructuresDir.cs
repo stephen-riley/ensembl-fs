@@ -21,7 +21,7 @@ namespace EnsemblFS.Directories
 
         public override ExpandedPath.Action HandlePath(ExpandedPath ep)
         {
-            Trace.WriteLine($"StructuresDir.HandlePath {ep.Path}");
+            Trace.WriteLine($"StructuresDir.HandlePath {ep.FullPath}");
 
             if (ep.Level > ep.Components.Count)
             {
