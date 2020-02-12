@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using Ensembl.Config;
 using FuseSharp;
 
 namespace EnsemblFS
@@ -24,7 +25,17 @@ namespace EnsemblFS
 
             Console.WriteLine("Mount point:{0}", mountPoint);
 
-            string[] actualArgs = { "-s", "-f", mountPoint };
+            var dbname = EnsemblConfig.DatabaseConfig.Host;
+
+            string[] actualArgs = {
+                "-s",
+                "-f", mountPoint,
+                "-r",
+                "-o", $"fsname=EnsemblFS-{dbname}",
+                "-o", $"volname=EnsemblFS-{dbname}",
+                "-o", "nolocalcaches",
+                "-o", "noappledouble",
+            };
 
             int status = -1;
 
