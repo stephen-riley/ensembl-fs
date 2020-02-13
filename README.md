@@ -32,3 +32,5 @@ GCTGCAGAAGACGACGGCCGACTTGGATCACACTCTTGTGAGTGTCCCCAGTGTTGCAGA
             /3
              :
 ```
+
+See [HOWITWORKS](https://github.com/stephen-riley/ensembl-fs/blob/master/HOWITWORKS.md) for a description of how EnsemblFS works with Ensembl genomic databases.
