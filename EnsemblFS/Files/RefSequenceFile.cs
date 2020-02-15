@@ -15,7 +15,7 @@ namespace EnsemblFS.Files
 
         public override Errno OnReadHandle(ExpandedPath file, PathInfo info, byte[] buf, long offset, out int bytesRead)
         {
-            // Trace.WriteLine($"*** RefSequenceFile.OnReadHandle({file.FullPath}, offset={offset}, buf_len={buf.Length})");
+            Trace.WriteLine($"*** RefSequenceFile.OnReadHandle({file.FullPath}, offset={offset}, buf_len={buf.Length})");
 
             var species = file.Components[0];
             var chromosome = file.Components[2];
