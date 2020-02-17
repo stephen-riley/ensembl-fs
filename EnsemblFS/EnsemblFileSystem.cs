@@ -21,6 +21,7 @@ namespace EnsemblFS
                             new ChromosomeDir(
                                 new SequenceDir(
                                     new RefSequenceFile("REF"),
+                                    new RefFastaFile("REF.fasta"),
                                     new PatchSequenceFile("PATCH")
                                 )
                             )
