@@ -21,7 +21,7 @@ namespace EnsemblFS
                             new ChromosomeDir(
                                 new SequenceDir(
                                     new RefSequenceFile("REF"),
-                                    new PatchSequenceFile("PATCH")
+                                    new StaticStringFile("PATCH", "The PATCH file has not yet been implemented.\r\n")
                                 )
                             )
                         )
