@@ -24,19 +24,19 @@ namespace EnsemblFS
             throw new System.NotImplementedException("FileProvider.OnReadDirectory marked as sealed, not implemented");
         }
 
-        protected unsafe int CopyBuf(string src, byte[] dest, int length, int offset = 0)
+        protected unsafe int CopyBuf(string src, byte[] dest, int length, int srcOffset = 0, int destOffset = 0)
         {
-            if (offset + length > src.Length)
+            if (srcOffset + length > src.Length)
             {
-                length = src.Length - (int)offset;
+                length = src.Length - (int)srcOffset;
             }
 
             fixed (byte* pBuf = dest)
             {
-                var charBuf = Encoding.UTF8.GetBytes(src.Substring((int)offset, length));
+                var charBuf = Encoding.UTF8.GetBytes(src.Substring((int)srcOffset, length));
                 for (int i = 0; i < charBuf.Length; i++)
                 {
-                    pBuf[i] = charBuf[i];
+                    pBuf[i + destOffset] = charBuf[i];
                 }
 
                 return charBuf.Length;
