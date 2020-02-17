@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using EnsemblFS.Files;
 using FuseSharp;
 using Mono.Unix.Native;
 
@@ -9,14 +8,14 @@ namespace EnsemblFS.Directories
 {
     public class SequenceDir : DirectoryProvider
     {
-        private static IDictionary<string, NamedStat> sequenceFiles = new Dictionary<string, NamedStat>
-        {
-            ["REF"] = new NamedStat("REF", Extensions.StandardFile()),
-            ["PATCHED"] = new NamedStat("PATCHED", Extensions.StandardFile())
-        };
+        private static IDictionary<string, NamedStat> sequenceFiles = new Dictionary<string, NamedStat>();
 
         public SequenceDir(params NodeProvider[] children) : base(children)
         {
+            foreach (var child in children.OfType<NamedFileProvider>())
+            {
+                sequenceFiles[child.Name] = new NamedStat(child.Name, Extensions.StandardFile());
+            }
         }
 
         public override ExpandedPath.Action HandlePath(ExpandedPath ep)
